@@ -1,0 +1,66 @@
+// Моковые данные - массив объектов котов
+// Структура соответствует карточкам макета: header, subhead, title, subtitle, text
+export const cats = [
+  {
+    id: 1,
+    header: 'Барсик',
+    subhead: 'Домашний кот',
+    title: 'Барсик',
+    subtitle: 'Cats',
+    text: 'Very cute! Любит поспать на диване и погонять клубок.',
+  },
+  {
+    id: 2,
+    header: 'Мурка',
+    subhead: 'Уличная кошка',
+    title: 'Мурка',
+    subtitle: 'Cats',
+    text: 'Гуляет сама по себе. Очень независимая и грациозная.',
+  },
+  {
+    id: 3,
+    header: 'Рыжик',
+    subhead: 'Персидский кот',
+    title: 'Рыжик',
+    subtitle: 'Cats',
+    text: 'Пушистый красавец. Обожает внимание и почёсывания за ухом.',
+  },
+  {
+    id: 4,
+    header: 'Снежок',
+    subhead: 'Британская кошка',
+    title: 'Снежок',
+    subtitle: 'Cats',
+    text: 'Белоснежный и аристократичный. Ест только элитный корм.',
+  },
+  {
+    id: 5,
+    header: 'Тигр',
+    subhead: 'Сибирский кот',
+    title: 'Тигр',
+    subtitle: 'Cats',
+    text: 'Большой и добродушный. Дружит со всеми жильцами дома.',
+  },
+];
+
+// Моковые данные пользователей для UsersPage
+export const users = [
+  {
+    id: 1,
+    fullName: 'Administrov Admin Adminovich',
+    login: 'admin',
+    role: 'admin',
+  },
+  {
+    id: 2,
+    fullName: 'Userov User Userovich',
+    login: 'user',
+    role: 'user',
+  },
+  {
+    id: 3,
+    fullName: 'Surname Name Patronymic',
+    login: 'catlover2004',
+    role: 'user',
+  },
+];
