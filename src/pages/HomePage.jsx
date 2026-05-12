@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
@@ -9,8 +9,21 @@ import AddCatDialog from '../components/AddCatDialog';
 import { cats as initialCats } from '../data/mockData';
 
 function HomePage({ onOpen }) {
-  const [cats, setCats] = useState(initialCats);
+
+  const [cats, setCats] = useState(() => {
+    try {
+      const saved = localStorage.getItem('cats');
+      return saved ? JSON.parse(saved) : initialCats;
+    } catch {
+      return initialCats;
+    }
+  });
+
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem('cats', JSON.stringify(cats));
+  }, [cats]);
 
   const handleAddCat = (newCat) => {
     setCats(prev => [...prev, newCat]);
@@ -27,11 +40,7 @@ function HomePage({ onOpen }) {
     }}>
       <Header onMenuOpen={onOpen} />
 
-      <Box sx={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        gap: 2,
-      }}>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
         {cats.map(cat => (
           <Box
             key={cat.id}
