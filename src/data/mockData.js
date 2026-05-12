@@ -1,5 +1,3 @@
-// Моковые данные - массив объектов котов
-// Структура соответствует карточкам макета: header, subhead, title, subtitle, text
 export const cats = [
   {
     id: 1,
@@ -43,7 +41,6 @@ export const cats = [
   },
 ];
 
-// Моковые данные пользователей для UsersPage
 export const users = [
   {
     id: 1,
