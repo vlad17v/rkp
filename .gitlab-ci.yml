@@ -42,7 +42,6 @@ deploy-local:
   script:
     - pm2 delete cats-site || true
     - pm2 serve dist/ 4173 --name cats-site --spa
-    - pm2 start "json-server --watch db.json --port 3001" --name cats-api
     - pm2 save
   environment:
     name: local
