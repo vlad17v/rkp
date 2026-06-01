@@ -1,20 +1,12 @@
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import HomeIcon from '@mui/icons-material/Home';
-import SettingsIcon from '@mui/icons-material/Settings';
-import PeopleIcon from '@mui/icons-material/People';
-
-const navItems = [
-  { label: 'Home',     icon: <HomeIcon /> },
-  { label: 'Settings', icon: <SettingsIcon /> },
-  { label: 'Users',    icon: <PeopleIcon /> },
-];
+import { NavLink } from 'react-router';
+import { MENU_ITEMS } from '../routes/paths';
 
 function NavDrawer({ open, onClose }) {
   return (
@@ -40,31 +32,46 @@ function NavDrawer({ open, onClose }) {
       </Box>
 
       <List sx={{ px: 1 }}>
-        {navItems.map((item) => (
-          <ListItem key={item.label} disablePadding sx={{ mb: 0.5 }}>
-            <ListItemButton
-              onClick={onClose}
-              sx={{
-                borderRadius: '12px',
-                bgcolor: 'transparent',
-                py: 1.2,
-                '&:hover': { bgcolor: '#FFCDB2' },
-              }}
-            >
-              <ListItemIcon sx={{ minWidth: 38, color: '#3E2723' }}>
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText
-                primary={item.label}
-                primaryTypographyProps={{
-                  color: '#1a1a1a',
-                  fontWeight: 500,
-                  fontSize: '0.95rem',
-                }}
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {MENU_ITEMS.map((item) => {
+          const Icon = item.icon;
+          return (
+            <ListItem key={item.text} disablePadding sx={{ mb: 0.5 }}>
+              <NavLink
+                to={item.path}
+                end={item.end}
+                onClick={onClose}
+                style={{ textDecoration: 'none', width: '100%' }}
+              >
+                {({ isActive }) => (
+                  <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1.5,
+                    px: 2,
+                    py: 1.2,
+                    borderRadius: '12px',
+                    bgcolor: isActive ? '#FFCDB2' : 'transparent',
+                    '&:hover': { bgcolor: '#FFCDB2' },
+                    cursor: 'pointer',
+                    transition: 'background-color 0.15s',
+                  }}>
+                    <ListItemIcon sx={{ minWidth: 0, color: '#3E2723' }}>
+                      <Icon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={item.text}
+                      primaryTypographyProps={{
+                        color: '#1a1a1a',
+                        fontWeight: isActive ? 700 : 500,
+                        fontSize: '0.95rem',
+                      }}
+                    />
+                  </Box>
+                )}
+              </NavLink>
+            </ListItem>
+          );
+        })}
       </List>
     </Drawer>
   );

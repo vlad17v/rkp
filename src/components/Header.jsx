@@ -4,8 +4,14 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useNavigate } from 'react-router';
+import { useApp } from '../context/AppContext';
+import { PATHS } from '../routes/paths';
 
-function Header({ onMenuOpen, title }) {
+function Header({ title }) {
+  const { openDrawer } = useApp();
+  const navigate = useNavigate();
+
   return (
     <AppBar position="static" elevation={0} sx={{
       bgcolor: '#FFE4D6',
@@ -13,7 +19,7 @@ function Header({ onMenuOpen, title }) {
       mb: 2,
     }}>
       <Toolbar>
-        <IconButton edge="start" onClick={onMenuOpen} sx={{ color: '#1a1a1a' }}>
+        <IconButton edge="start" onClick={openDrawer} sx={{ color: '#1a1a1a' }}>
           <MenuIcon />
         </IconButton>
 
@@ -24,14 +30,8 @@ function Header({ onMenuOpen, title }) {
         </Typography>
 
         <IconButton
-          onClick={() => console.log('user')}
-          sx={{
-            width: 36,
-            height: 36,
-            border: '1.5px solid #3E2723',
-            color: '#3E2723',
-            p: 0,
-          }}
+          onClick={() => navigate(PATHS.SETTINGS)}
+          sx={{ width: 36, height: 36, border: '1.5px solid #3E2723', color: '#3E2723', p: 0 }}
         >
           <AccountCircleIcon sx={{ fontSize: 26 }} />
         </IconButton>
