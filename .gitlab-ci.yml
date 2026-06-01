@@ -40,7 +40,6 @@ deploy-local:
   only:
     - master
   script:
-    - npm install -g pm2 serve
     - pm2 delete cats-site || true
     - pm2 serve dist/ 4173 --name cats-site --spa
     - pm2 save
