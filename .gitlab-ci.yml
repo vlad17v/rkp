@@ -40,8 +40,17 @@ deploy-local:
   only:
     - master
   script:
+    deploy-local:
+  stage: deploy
+  tags:
+    - local-runner2
+  only:
+    - master
+  script:
     - pm2 delete cats-site || true
     - pm2 serve dist/ 4173 --name cats-site --spa
+    - pm2 delete cats-api || true
+    - pm2 start npx --name cats-api -- json-server --watch ./db.json --port 3001
     - pm2 save
   environment:
     name: local
