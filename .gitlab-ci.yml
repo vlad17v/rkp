@@ -1,0 +1,50 @@
+stages:
+  - build
+  - test
+  - deploy
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
+build:
+  stage: build
+  image: node:20
+  script:
+    - npm ci
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 hour
+
+test:
+  stage: test
+  image: node:20
+  script:
+    - npm ci
+    - npm run test:coverage
+  coverage: '/Lines\s*:\s*(\d+\.?\d*)%/'
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/cobertura-coverage.xml
+    expire_in: 1 week
+
+deploy-local:
+  stage: deploy
+  tags:
+    - local-runner
+  only:
+    - main
+    - rkp
+  script:
+    - npm install -g pm2 serve
+    - pm2 delete cats-site || true
+    - pm2 serve dist/ 4173 --name cats-site --spa
+    - pm2 save
+  environment:
+    name: local
+    url: http://localhost:4173
