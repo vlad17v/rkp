@@ -38,8 +38,7 @@ deploy-local:
   tags:
     - local-runner2
   only:
-    - main
-    - rkp
+    - master
   script:
     - npm install -g pm2 serve
     - pm2 delete cats-site || true
