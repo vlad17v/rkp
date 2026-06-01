@@ -36,7 +36,7 @@ test:
 deploy-local:
   stage: deploy
   tags:
-    - local-runner
+    - local-runner2
   only:
     - main
     - rkp
